@@ -222,7 +222,7 @@ export default function Home() {
         </section>
 
         <section id="talep" className="px-5 pb-20 sm:pb-28 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-[2rem] bg-[#e4f0e8] p-7 sm:p-10 lg:p-14">
+          <div className="request-section-panel mx-auto max-w-7xl rounded-[2rem] bg-[#e4f0e8] p-7 sm:p-10 lg:p-14">
             <Reveal>
               <div className="grid gap-8 lg:grid-cols-[.85fr_1.15fr]">
                 <div>
