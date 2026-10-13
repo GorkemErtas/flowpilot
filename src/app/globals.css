@@ -114,3 +114,39 @@ h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* The existing light palette remains the default; dark mode is opt-in. */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e9f3ee;
+  --surface: #0b181a;
+  --teal: #a2e4d2;
+}
+html[data-theme="dark"] body { background: var(--surface); color: var(--ink); }
+html[data-theme="dark"] header { background: rgba(11, 24, 26, .94) !important; border-color: #304747 !important; }
+html[data-theme="dark"] section,
+html[data-theme="dark"] footer { border-color: #304747 !important; }
+html[data-theme="dark"] [class*="bg-white"],
+html[data-theme="dark"] [class*="bg-[#f7f8f4]"],
+html[data-theme="dark"] [class*="bg-[#f2f8f5]"],
+html[data-theme="dark"] [class*="bg-[#fdfefb]"] { background-color: #142629 !important; }
+html[data-theme="dark"] [class*="bg-[#e4f3c4]"] { background-color: #254c42 !important; }
+html[data-theme="dark"] [class*="text-[#102a2c]"],
+html[data-theme="dark"] [class*="text-[#17393a]"],
+html[data-theme="dark"] [class*="text-[#28504c]"],
+html[data-theme="dark"] [class*="text-[#31504e]"],
+html[data-theme="dark"] [class*="text-[#3d5453]"],
+html[data-theme="dark"] .section-title { color: #e9f3ee !important; }
+html[data-theme="dark"] [class*="text-[#526968]"],
+html[data-theme="dark"] [class*="text-[#667773]"] { color: #b6c9c5 !important; }
+html[data-theme="dark"] [class*="text-[#0d6d62]"],
+html[data-theme="dark"] .eyebrow { color: #a2e4d2 !important; }
+html[data-theme="dark"] [class*="border-[#"] { border-color: #36504d !important; }
+html[data-theme="dark"] .form-control { background: #0d2022 !important; border-color: #4a6763; color: #f1faf7; }
+html[data-theme="dark"] .form-control::placeholder { color: #a4bcb6; }
+html[data-theme="dark"] .form-label { color: #d6e9e4; }
+html[data-theme="dark"] .theme-toggle { background: #20383a !important; color: #e9f3ee !important; }
+html[data-theme="dark"] [class*="bg-[#0d6d62]"] { background-color: #126e64 !important; }
+html[data-theme="dark"] [class*="bg-[#0d6d62]"][class*="text-white"] { color: white !important; }
+html[data-theme="dark"] [class*="bg-[#fff1ee]"] { background-color: #4b2729 !important; }
+html[data-theme="dark"] [class*="text-[#a32d28]"] { color: #ffb5aa !important; }
