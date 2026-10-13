@@ -132,5 +132,3 @@ AI'yi geliştirmeyi hızlandırmak için kullandım; **gereksinimler, teknik kar
 - Gerçek müşteri verileriyle kullanımdan önce gizlilik ve veri saklama süreçleri ayrıca ele alınmalı.
 
 ---
-
-**Teslim sürümü:** Bu repodaki son `main` commit'i. Tam commit kimliği için `git rev-parse HEAD` komutu kullanılabilir.
