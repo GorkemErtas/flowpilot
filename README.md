@@ -66,7 +66,7 @@ npm run test:e2e
 
 Entegrasyon testleri gerçek PostgreSQL üzerinde çalışır ve kendilerine ait geçici şemayı temizler. Playwright testleri ise üretim build'ini tarayıcıda açıp form akışını kontrol eder.
 
-Geliştirme sırasında **47 birim/bileşen testi, 3 entegrasyon testi ve 8 tarayıcı testi** başarılı olarak raporlandı. Daha sonra kendi ortamımda **3/3 entegrasyon testinin** ve Playwright testlerinin geçtiğini gördüm. Canlı siteden gönderdiğim kurgusal talebin Neon'da oluştuğunu da doğruladım. Son tema düzenlemelerinin ardından tüm testler yeniden çalıştırılmış değil; ayrıntılar [AI_LOG.md](AI_LOG.md) dosyasında.
+Geliştirme sırasında **47 birim/bileşen testi, 3 entegrasyon testi ve 8 tarayıcı testi** başarılı olarak raporlandı. Daha sonra kendi ortamımda **3/3 entegrasyon testinin** ve Playwright testlerinin geçtiğini gördüm. Canlı siteden gönderdiğim kurgusal talebin Neon'da oluştuğunu da doğruladım. Son düzenlemelerin ardından **lint, typecheck, format, birim testleri, entegrasyon testleri, production build ve Playwright testlerinin tamamını** kendi bilgisayarımda yeniden çalıştırdım; hepsi başarılıydı. Ayrıntılar [AI_LOG.md](AI_LOG.md) dosyasında.
 
 ## API ve güvenlik
 
@@ -80,8 +80,8 @@ GitHub reposu Vercel'e bağlı. Production ortamında Neon'un **ana veritabanı*
 
 ## Bilinen sınırlar
 
-FlowPilot gerçek iş akışlarını çalıştırmıyor; kullanıcı hesabı, yönetim paneli ve gerçek servis entegrasyonları yok. Bunlar bu çalışmanın kapsamına dahil edilmedi. Gerçek kişisel verilerle kullanımdan önce veri saklama ve gizlilik süreçleri belirlenmeli. Koyu tema için son mobil/kontrast kontrolü de yapılmalı.
+FlowPilot gerçek iş akışlarını çalıştırmıyor; kullanıcı hesabı, yönetim paneli ve gerçek servis entegrasyonları yok. Bunlar bu çalışmanın kapsamına dahil edilmedi. Gerçek kişisel verilerle kullanımdan önce veri saklama ve gizlilik süreçleri belirlenmeli. Son teslim kontrolünde mobil görünümü, açık/koyu temayı ve yazı okunabilirliğini de gözden geçirdim.
 
 Bu projeyi AI desteğiyle geliştirdim. Neyi AI'ye yaptırdığımı, hangi kararları verdiğimi, karşılaştığım hataları ve doğrulama adımlarını **[AI_LOG.md](AI_LOG.md)** dosyasında anlattım.
 
-**Teslim commit'i:** Son kontrollerden sonra sabitlenecek; güncel commit için `git rev-parse HEAD`.
+**Teslim commit'i:** GitHub'daki son `main` commit'i. Tam SHA için `git rev-parse HEAD` komutunu kullanabilirsiniz.
