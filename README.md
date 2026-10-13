@@ -115,6 +115,8 @@ Projeyi planlama, geliştirme, test ve canlıya alma dahil **3 saatten kısa sü
 
 AI'yi geliştirmeyi hızlandırmak için kullandım; **gereksinimler, teknik kararlar, yönlendirme ve sonuçların doğrulanması** benim sorumluluğumdaydı. AI'nin katkılarını ve karşılaştığım sorunları [AI_LOG.md](AI_LOG.md) dosyasında açıkladım.
 
+**Kaynak ve zaman kısıtları:** Bu projede ek ücretli araç veya hizmetlere bütçe ayıramadığım için AI desteğinde yalnızca mevcut **ChatGPT Plus** aboneliğimi kullandım. Arayüzün daha da geliştirilebileceğinin, yeni tasarımlar ve animasyonlarla zenginleştirilebileceğinin farkındayım. Ancak bu çalışmada önceliğim, sınırlı sürede temel gereksinimleri eksiksiz karşılayan, test edilmiş ve canlıda çalışan bir ürün ortaya çıkarmaktı. Bu nedenle ek görsel iyileştirmeler yerine işlevselliğe ve hızlı teslimata odaklandım.
+
 ## Deployment
 
 - Kaynak kod GitHub üzerinden Vercel'e bağlı.
