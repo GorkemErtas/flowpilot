@@ -23,3 +23,11 @@ model ServiceRequest {
 
   @@index([createdAt])
 }
+
+model RequestQuota {
+  key       String   @id @db.VarChar(96)
+  count     Int      @default(1)
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
