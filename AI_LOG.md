@@ -37,6 +37,8 @@ Codex implemented this fictional Enteksis case study from the supplied brief. No
 
 Node 24 is pinned for local/Vercel compatibility. Prisma generates on install and build; type checking generates Next route declarations. Runtime/test environment variables, migrations, isolated tests, verification cleanup, fixed-window limits, retry uncertainty, and Vercel release steps are documented. `.env*` (except the placeholder example), database files, dependencies, build output and generated route declarations are ignored. The local trust-auth PostgreSQL cluster was bound only to loopback port 55432 under `.local/postgres`; it is test infrastructure, not production configuration.
 
+Delivery tooling was committed as `a89676c`; final documentation adds the setup, API contract, deployment procedure, known limits and verification instructions. The isolated PostgreSQL process was stopped after verification; its ignored `.local/postgres` data remains available. No other PostgreSQL service was restarted or stopped. Human review and deployment remain outstanding.
+
 ## Human handoff
 
 Review the code, product wording, privacy/retention policy, target PostgreSQL connection, and production hosting configuration before public use. Deployment requires the owner's credentials and authorization.
