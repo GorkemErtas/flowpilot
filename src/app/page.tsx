@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout/header";
+import { RequestForm } from "@/components/forms/request-form";
 import { WorkflowVisual } from "@/components/sections/workflow-visual";
 import { Icon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/reveal";
@@ -230,16 +231,7 @@ export default function Home() {
                     noktasını birlikte değerlendirelim.
                   </p>
                 </div>
-                <div
-                  className="rounded-[1.5rem] bg-white p-6 shadow-[0_12px_30px_rgba(16,42,44,.07)] sm:p-8"
-                >
-                  <h3 className="text-lg font-extrabold">Nereden başlayabiliriz?</h3>
-                  <ul className="mt-4 space-y-3 text-sm leading-6 text-[#526968]">
-                    <li>Ekibinizin tekrar tekrar yaptığı işler</li>
-                    <li>Bilginin kaybolduğu veya beklediği adımlar</li>
-                    <li>Daha görünür olmasını istediğiniz süreçler</li>
-                  </ul>
-                </div>
+                <RequestForm />
               </div>
             </Reveal>
           </div>

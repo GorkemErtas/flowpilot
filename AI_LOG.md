@@ -18,6 +18,7 @@ Codex implemented this fictional Enteksis case study from the supplied brief. No
 - Backend verification: 36 Vitest schema/API tests passed. Three PostgreSQL integration tests passed against a fresh random test schema: committed readback through a new Prisma connection, six concurrent requests admitting exactly three per email, and quota rollback on a real database constraint failure. Tests apply the versioned SQL migrations and drop only their own schema. Browser behavior is not yet verified.
 - Interface TypeScript and lint passed; production compilation succeeded after granting process-launch access. An isolated PostgreSQL 18 cluster was initialized under ignored `.local/` on loopback port 55432, separate from the user's existing service.
 - Backend: Prisma transaction commits both request and quota counters, using the database clock. Fixed-window limits are three accepted requests per normalized email/hour and 30 accepted requests globally/minute. Counters are shared across instances; no IP identity or in-memory limiter is claimed. The API also checks origin, JSON content type, actual streamed byte size, and input schema.
+- Form verification: 42 unit/component tests passed in total. Six form scenarios verify invalid-field focus, duplicate-submit blocking while pending, success only after a well-formed HTTP 201 receipt, 500/429 input preservation, malformed success rejection, and connection-loss uncertainty. These component tests mock HTTP only and are distinct from real PostgreSQL tests.
 
 ## Human handoff
 

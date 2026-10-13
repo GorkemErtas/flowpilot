@@ -29,6 +29,44 @@ textarea {
   outline: 3px solid #91b92c;
   outline-offset: 3px;
 }
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #31504e;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.form-control {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border: 1px solid #c5d2cc;
+  border-radius: 0.75rem;
+  padding: 0.8rem 1rem;
+  background: #fdfefb;
+  color: #17393a;
+  font-size: 0.875rem;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.form-control::placeholder {
+  color: #667773;
+}
+.form-control:focus {
+  border-color: #0d6d62;
+  box-shadow: 0 0 0 3px #0d6d6215;
+}
+.form-control[aria-invalid="true"] {
+  border-color: #a32d28;
+}
+textarea.form-control {
+  resize: vertical;
+}
+section[id],
+main[id] {
+  scroll-margin-top: 100px;
+}
 .eyebrow {
   color: #0d6d62;
   font-size: 0.7rem;
