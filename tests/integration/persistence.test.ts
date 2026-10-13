@@ -25,16 +25,21 @@ beforeAll(async () => {
   await db.$executeRawUnsafe(`CREATE SCHEMA "${schema}"`);
   schemaCreated = true;
   const directory = new URL("../../prisma/migrations/", import.meta.url);
-  for (const entry of (await readdir(directory, { withFileTypes: true }))
-    .filter((entry) => entry.isDirectory())
-    .sort((a, b) => a.name.localeCompare(b.name))) {
-    const sql = await readFile(
-      new URL(`${entry.name}/migration.sql`, directory),
-      "utf8",
-    );
-    for (const statement of sql.split(";").filter((part) => part.trim()))
-      await db.$executeRawUnsafe(statement);
-  }
+  // Execute migrations on one connection with the isolated schema as the
+  // search path. Prisma's ?schema= URL parameter does not scope raw SQL.
+  await db.$transaction(async (tx) => {
+    await tx.$executeRawUnsafe(`SET LOCAL search_path TO "${schema}"`);
+    for (const entry of (await readdir(directory, { withFileTypes: true }))
+      .filter((entry) => entry.isDirectory())
+      .sort((a, b) => a.name.localeCompare(b.name))) {
+      const sql = await readFile(
+        new URL(`${entry.name}/migration.sql`, directory),
+        "utf8",
+      );
+      for (const statement of sql.split(";").filter((part) => part.trim()))
+        await tx.$executeRawUnsafe(statement);
+    }
+  });
 });
 
 beforeEach(async () => {
