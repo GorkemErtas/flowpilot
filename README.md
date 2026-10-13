@@ -4,13 +4,13 @@
 
 A fictional Turkish B2B automation service built for the Enteksis full-stack case study. A responsive landing page, validated service-request form, and real PostgreSQL persistence. No real customers, integrations, commercial operations, delivery promises, or measured business outcomes are implied.
 
-Live demo: **Not deployed — URL pending owner-authorized deployment.**
+**Live demo:** https://flowpilot-orcin.vercel.app/ (Vercel; live form submission and Neon persistence confirmed by the project owner).
 
-Configured remote: [GorkemErtas/flowpilot](https://github.com/GorkemErtas/flowpilot). Implementation commits are local; no push or public visibility is claimed. Get the exact delivered revision with `git rev-parse HEAD`.
+**Source:** [GorkemErtas/flowpilot](https://github.com/GorkemErtas/flowpilot). The final revision is the latest commit on `main`; use `git rev-parse HEAD` after pulling to record its full SHA.
 
 ## Features and stack
 
-- Turkish copy; original HTML/SVG workflow illustration; responsive navigation; keyboard accessibility; reduced-motion support and subtle Motion transitions.
+- Turkish copy; original HTML/SVG workflow illustration; responsive navigation; accessible light-default/dark-mode toggle (saved locally in the browser); reduced-motion support and subtle Motion transitions.
 - Shared Zod validation and React Hook Form, inline errors, validating/submitting/success/error states, pending-submit protection, and input preservation on failure.
 - Success requires an HTTP 201 receipt from a completed PostgreSQL transaction.
 - Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4, Prisma 6, PostgreSQL, Vitest, Testing Library, Playwright, and axe. Exact dependency versions are pinned in `package-lock.json`.
@@ -24,7 +24,7 @@ src/
     api/requests/route.ts      Node runtime HTTP entry point
   components/
     forms/request-form.tsx    Form state, accessibility, HTTP interaction
-    layout/                   Responsive navigation
+    layout/                   Responsive navigation and theme toggle
     sections/                 Original product visualization
     ui/                       Icons and motion wrapper
   features/service-requests/
@@ -83,7 +83,7 @@ Next.js and Prisma load `.env` locally. Database/browser test scripts explicitly
 
 ## Testing and persistence verification
 
-Create a separate `flowpilot_test` database and configure `TEST_DATABASE_URL`. The integration role needs schema create/drop permission **inside that test database**. Each integration run applies versioned SQL to a random schema and drops only its own schema. Mocked API/component tests are not evidence of database persistence.
+Create a separate `flowpilot_test` database and configure `TEST_DATABASE_URL`. For Playwright, use an empty dedicated schema (for example `?sslmode=require&schema=flowpilot_e2e`) if the test database's `public` schema already contains tables without Prisma migration history; otherwise Prisma can report P3005. The integration role needs schema create/drop permission **inside that test database**. Each integration run applies versioned SQL to a random schema and drops only its own schema. Mocked API/component tests are not evidence of database persistence.
 
 ```sh
 npm run lint
@@ -174,16 +174,16 @@ After connection loss, the form cannot know whether the server committed; it rep
 
 ## Vercel deployment
 
-`vercel.json` is included; no deployment has been performed.
+`vercel.json` is included. The project owner deployed the app to [Vercel](https://flowpilot-orcin.vercel.app/) with a Neon PostgreSQL database and confirmed a successful live form submission and database record. New code commits still require a successful Vercel redeployment and smoke test.
 
-1. Review and authorize pushing the implementation. Import the repository into Vercel; select Node **24.x**.
+1. Import the GitHub repository into Vercel; select Node **24.x**.
 2. Provision persistent hosted PostgreSQL near the function region. Give previews a separate database/branch.
 3. Configure runtime `DATABASE_URL` securely in Vercel. Use the provider's Prisma-compatible pooler and TLS parameters. The example starts with `connection_limit=1&pool_timeout=10`; tune to provider quotas/concurrency.
 4. Apply `npm run db:deploy` in a controlled release step using the provider's **direct** migration connection as `DATABASE_URL`. Use migration-role credentials only in that step. Never run `migrate dev`, `db push`, or tests against production.
 5. Build with `npm run build`. Prisma Client is regenerated on install/build to avoid cached-client mismatch. Builds do not migrate or insert records.
 6. Submit fictional data through the deployed form and verify its returned ID in the target database. Verify restart persistence, headers and logs; record the actual live URL and deployed commit SHA.
 
-The runtime role needs request inserts and quota read/write/delete; migration permissions can be separate. Never prefix database variables with `NEXT_PUBLIC_`. Hosting authorization, production credentials, a live URL and publicly accessible final source revision remain owner-controlled delivery steps.
+The runtime role needs request inserts and quota read/write/delete; migration permissions can be separate. Never prefix database variables with `NEXT_PUBLIC_`. Production credentials remain owner-controlled. Do not commit secrets or use the production database for tests.
 
 References: [Vercel Node runtimes](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions), [Prisma v6 serverless deployment](https://www.prisma.io/docs/orm/v6/prisma-client/deployment/serverless), [database connections](https://docs.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections).
 
