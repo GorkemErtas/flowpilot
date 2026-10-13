@@ -1,25 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 const STORAGE_KEY = "flowpilot-theme";
 
+const THEME_CHANGE_EVENT = "flowpilot-theme-change";
+
+function getTheme(): Theme {
+  return window.localStorage.getItem(STORAGE_KEY) === "dark" ? "dark" : "light";
+}
+
+function subscribe(onChange: () => void) {
+  window.addEventListener("storage", onChange);
+  window.addEventListener(THEME_CHANGE_EVENT, onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener(THEME_CHANGE_EVENT, onChange);
+  };
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const theme = useSyncExternalStore(subscribe, getTheme, () => "light");
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    const initial: Theme = saved === "dark" ? "dark" : "light";
-    document.documentElement.dataset.theme = initial;
-    setTheme(initial);
-  }, []);
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   function toggle() {
     const next: Theme = theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
     window.localStorage.setItem(STORAGE_KEY, next);
-    setTheme(next);
+    window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   }
 
   return (
