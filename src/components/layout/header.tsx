@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 
 const links = [
@@ -11,9 +11,18 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const closeMenu = () => setOpen(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-[#102a2c]/8 bg-[#f7f8f4]/88 backdrop-blur-xl">
+    <header
+      className="sticky top-0 z-50 border-b border-[#102a2c]/8 bg-[#f7f8f4]/88 backdrop-blur-xl"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          toggleRef.current?.focus();
+        }
+      }}
+    >
       <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 lg:px-8">
         <a
           href="#ana-icerik"
@@ -49,6 +58,7 @@ export function Header() {
           </a>
         </nav>
         <button
+          ref={toggleRef}
           type="button"
           className="grid size-11 place-items-center rounded-xl text-[#102a2c] md:hidden"
           onClick={() => setOpen(!open)}

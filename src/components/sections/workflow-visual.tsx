@@ -79,7 +79,7 @@ function WorkflowNode({
         <span className="block text-sm font-extrabold text-[#17393a]">
           {title}
         </span>
-        <span className="mt-0.5 block truncate text-xs font-medium text-[#718584]">
+        <span className="mt-0.5 block truncate text-xs font-medium text-[#526968]">
           {detail}
         </span>
       </span>

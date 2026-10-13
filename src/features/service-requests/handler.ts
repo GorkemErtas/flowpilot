@@ -50,8 +50,23 @@ function respond(
 export function createRequestHandler(submit = createServiceRequest) {
   return async function POST(request: Request): Promise<Response> {
     const origin = request.headers.get("origin");
+    let originAllowed = !origin;
+    if (origin) {
+      try {
+        const parsed = new URL(origin);
+        // Host preserves the public host when Next.js uses an internal request URL.
+        const publicHost =
+          request.headers.get("host") ?? new URL(request.url).host;
+        originAllowed =
+          /^https?:$/.test(parsed.protocol) &&
+          parsed.origin === origin &&
+          parsed.host === publicHost;
+      } catch {
+        originAllowed = false;
+      }
+    }
     if (
-      (origin && origin !== new URL(request.url).origin) ||
+      !originAllowed ||
       request.headers.get("sec-fetch-site") === "cross-site"
     ) {
       return respond(

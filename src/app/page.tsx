@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="ana-icerik" className="overflow-hidden">
+      <main id="ana-icerik" tabIndex={-1} className="overflow-hidden">
         <section className="relative isolate px-5 pb-20 pt-16 sm:pb-28 sm:pt-24 lg:px-8 lg:pt-28">
           <div className="absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(ellipse_at_14%_30%,rgba(200,232,106,.42),transparent_35%),radial-gradient(ellipse_at_85%_6%,rgba(159,216,204,.30),transparent_35%)]" />
           <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.03fr_.97fr] lg:gap-10">
@@ -43,7 +43,7 @@ export default function Home() {
                 <span className="size-1.5 rounded-full bg-[#84b434]" />
                 OPERASYON İÇİN OTOMASYON
               </p>
-              <h1 className="mt-7 max-w-3xl text-[clamp(2.8rem,6vw,5.3rem)] font-extrabold leading-[.98] tracking-[-.07em] text-[#102a2c]">
+              <h1 className="mt-7 max-w-3xl text-[clamp(2.35rem,6vw,5.3rem)] font-extrabold leading-[.98] tracking-[-.07em] text-[#102a2c]">
                 Tekrarlayan işleri{" "}
                 <em className="font-inherit text-[#0d6d62]">
                   otomatikleştirin.
@@ -107,7 +107,7 @@ export default function Home() {
                 <h2 className="section-title max-w-2xl">
                   Operasyonunuzun ihtiyaç duyduğu, yerinde otomasyon.
                 </h2>
-                <p className="max-w-sm text-sm font-medium leading-6 text-[#617776]">
+                <p className="max-w-sm text-sm font-medium leading-6 text-[#526968]">
                   Hazır kalıplar yerine, ekibinizin gerçek çalışma biçimini
                   temel alırız.
                 </p>
@@ -124,7 +124,7 @@ export default function Home() {
                           className="size-5"
                         />
                       </span>
-                      <span className="text-xs font-extrabold text-[#92a29c]">
+                      <span className="text-xs font-extrabold text-[#607574]">
                         {serviceMeta[index].eyebrow}
                       </span>
                     </div>
@@ -134,13 +134,17 @@ export default function Home() {
                     <p className="mt-3 text-sm font-medium leading-6 text-[#607574]">
                       {serviceMeta[index].text}
                     </p>
-                    <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-extrabold text-[#0d6d62]">
+                    <a
+                      href="#talep"
+                      aria-label={`${service.label} için talep oluşturun`}
+                      className="mt-8 inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-[#0d6d62]"
+                    >
                       Keşfedin{" "}
                       <Icon
                         name="arrow"
                         className="size-4 transition group-hover:translate-x-1"
                       />
-                    </span>
+                    </a>
                   </article>
                 </Reveal>
               ))}
@@ -238,7 +242,7 @@ export default function Home() {
         </section>
       </main>
       <footer className="border-t border-[#102a2c]/8 px-5 py-9 lg:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs font-medium text-[#647877] sm:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs font-medium text-[#526968] sm:flex-row">
           <span>© 2026 FlowPilot · Kurgusal vaka çalışması</span>
           <span>
             Bu sayfa gerçek müşteri, entegrasyon veya performans iddiası

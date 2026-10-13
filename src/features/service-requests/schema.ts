@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { serviceOptions } from "./types";
+import { serviceOptions, type ServiceType } from "./types";
 
 const serviceValues = serviceOptions.map((option) => option.value) as [
-  (typeof serviceOptions)[number]["value"],
-  ...(typeof serviceOptions)[number]["value"][],
+  ServiceType,
+  ...ServiceType[],
 ];
 
 export const serviceRequestSchema = z

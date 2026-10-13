@@ -36,6 +36,20 @@ textarea {
   font-size: 0.8rem;
   font-weight: 700;
 }
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #102a2c;
+  color: white;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
 .form-control {
   width: 100%;
   min-width: 0;
@@ -81,7 +95,15 @@ main[id] {
   letter-spacing: -0.06em;
   line-height: 1.04;
 }
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
+}
 @media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none !important;
+  }
   html {
     scroll-behavior: auto;
   }

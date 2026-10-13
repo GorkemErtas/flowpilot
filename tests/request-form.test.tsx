@@ -92,20 +92,18 @@ describe("request form", () => {
     async (status) => {
       vi.stubGlobal(
         "fetch",
-        vi
-          .fn()
-          .mockResolvedValue(
-            Response.json(
-              {
-                ok: false,
-                error: {
-                  code: status === 429 ? "RATE_LIMITED" : "INTERNAL_ERROR",
-                  message: "Talebiniz kaydedilemedi.",
-                },
+        vi.fn().mockResolvedValue(
+          Response.json(
+            {
+              ok: false,
+              error: {
+                code: status === 429 ? "RATE_LIMITED" : "INTERNAL_ERROR",
+                message: "Talebiniz kaydedilemedi.",
               },
-              { status },
-            ),
+            },
+            { status },
           ),
+        ),
       );
       render(<RequestForm />);
       const user = await fillForm();

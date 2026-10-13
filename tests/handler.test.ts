@@ -16,6 +16,33 @@ function request(
 }
 
 describe("POST request handler", () => {
+  it("accepts the browser's public Host when Next.js has an internal URL", async () => {
+    const submit = vi
+      .fn()
+      .mockResolvedValue({ id: "public-host-record", createdAt: new Date() });
+    const response = await createRequestHandler(submit)(
+      request(undefined, {
+        Host: "127.0.0.1:3100",
+        Origin: "http://127.0.0.1:3100",
+      }),
+    );
+    expect(response.status).toBe(201);
+    expect(submit).toHaveBeenCalledOnce();
+  });
+  it.each([
+    "null",
+    "bad origin",
+    "https://foreign.example",
+    "https://flowpilot.example/path",
+  ])("rejects an invalid or foreign origin: %s", async (origin) => {
+    expect(
+      (
+        await createRequestHandler(vi.fn())(
+          request(undefined, { Origin: origin }),
+        )
+      ).status,
+    ).toBe(403);
+  });
   it("waits for persistence before returning 201", async () => {
     let complete!: (value: { id: string; createdAt: Date }) => void;
     const save = vi.fn(

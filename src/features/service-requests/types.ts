@@ -5,10 +5,3 @@ export const serviceOptions = [
 ] as const;
 
 export type ServiceType = (typeof serviceOptions)[number]["value"];
-
-export type ServiceRequestInput = {
-  fullName: string;
-  email: string;
-  service: ServiceType;
-  description: string;
-};
