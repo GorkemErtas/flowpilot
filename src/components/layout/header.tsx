@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const links = [
   { href: "#cozumler", label: "Çözümler" },
@@ -50,6 +51,7 @@ export function Header() {
               {link.label}
             </a>
           ))}
+          <ThemeToggle />
           <a
             href="#talep"
             className="rounded-full bg-[#0d6d62] px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-px hover:bg-[#095b52]"
@@ -57,6 +59,8 @@ export function Header() {
             Görüşme talep edin
           </a>
         </nav>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
         <button
           ref={toggleRef}
           type="button"
@@ -68,6 +72,7 @@ export function Header() {
         >
           <Icon name={open ? "close" : "menu"} className="size-6" />
         </button>
+        </div>
       </div>
       {open && (
         <nav
