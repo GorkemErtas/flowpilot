@@ -1,58 +1,39 @@
-# AI contribution log
+# AI_LOG — FlowPilot
 
-## Context
+Bu projeyi Enteksis'in full-stack uygulama çalışması için AI desteğiyle geliştirdim. Amacım, kurgusal bir otomasyon hizmetini anlatan sade bir sayfa hazırlamak ve formdan gelen talepleri gerçekten veritabanına kaydetmekti. FlowPilot bir otomasyon motoru değil; otomasyon hizmeti için hazırlanmış bir tanıtım ve talep toplama uygulaması.
 
-Codex implemented this fictional Enteksis case study from the supplied brief. Initial implementation was AI-assisted; the project owner subsequently reviewed the interface, deployed the site, and confirmed a synthetic live submission. No real customer use is claimed. Git identity and the initial repository history were preserved.
+## AI'yi nasıl kullandım?
 
-## Milestones and decisions
+- **Codex:** İlk uygulama iskeletini, arayüzü, API'yi, veritabanı katmanını ve otomatik testleri geliştirdi. Çalışmayı aşamalara bölüp Git commit'leri oluşturmasını istedim.
+- **ChatGPT:** Teknik tercihleri anlamak, test ve deployment adımlarını planlamak, karşılaştığım hataları incelemek ve sonradan istediğim tema değişikliklerini yapmak için kullandım.
+- **Benim katkım:** Gereksinimleri ve istediğim arayüz yaklaşımını belirledim; çıkan arayüzü değerlendirdim, Neon ve Vercel kurulumlarını yaptım, testleri kendi ortamımda çalıştırdım ve canlı form kaydını kontrol ettim.
 
-- Repository inspection: only the initial README existed; the working tree was clean.
-- Foundation (`ed51a5e`): strict TypeScript, Next.js App Router, Tailwind, Prisma PostgreSQL model and versioned migration, shared Zod validation and stable service identifiers. TypeScript and lint passed before committing.
-- Interface (`ec21fd0`): Turkish content, teal/ivory/lime design tokens, original CSS workflow visualization, semantic sections, responsive navigation, and reduced-motion-aware reveals. Product graphics are illustrative, not live integrations or real metrics.
-- Dependency review: initial framework pins were outdated. Registry and official Next.js security guidance were consulted; upgraded to Next.js 16.4.0 / React 19.3.0, patched Vitest and PostCSS, and installed form/browser test tooling. npm 10.9.0 hit an internal peer-graph error; an alternate resolver completed installation. Final standard `npm ci` succeeded without the alternate resolver under temporary Node 24.21.0. The installed system Node version was not changed.
+AI'nin yazdığı kodu tamamen elle yazmışım gibi sunmuyorum. Teknik uygulamanın önemli bölümü AI tarafından üretildi; yönlendirme, kontrol, geri bildirim ve yayına alma sürecini ben yürüttüm.
 
-## Verification transparency
+## Önemli tercihler
 
-- Initial production build was blocked by sandbox process-launch permissions; this was not an application compilation failure.
-- Earlier progress incorrectly attributed installation trouble to OneDrive without evidence. The tool returned after 30 seconds while installation was still active; a second install overlapped it. Generated `node_modules` was rebuilt; no source or history was removed.
-- Backend (`fcd85f7`): 36 Vitest schema/API tests passed at this milestone. Three PostgreSQL integration tests passed against a fresh random test schema: committed readback through a new Prisma connection, six concurrent requests admitting exactly three per email, and quota rollback on a real database constraint failure. Tests apply versioned SQL and drop only their own schema.
-- Interface TypeScript and lint passed; production compilation succeeded after granting process-launch access. An isolated PostgreSQL 18 cluster was initialized under ignored `.local/` on loopback port 55432, separate from the user's existing service.
-- Backend: Prisma transaction commits both request and quota counters, using the database clock. Fixed-window limits are three accepted requests per normalized email/hour and 30 accepted requests globally/minute. Counters are shared across instances; no IP identity or in-memory limiter is claimed. The API also checks origin, JSON content type, actual streamed byte size, and input schema.
-- Form (`c42e9e1`): 42 unit/component tests passed at this milestone. Six form scenarios verify invalid-field focus, duplicate-submit blocking while pending, success only after a well-formed HTTP 201 receipt, 500/429 input preservation, malformed success rejection, and connection-loss uncertainty. These component tests mock HTTP only and are distinct from real PostgreSQL tests.
-- Browser quality milestone: headless Edge against the production build revealed reduced-motion transparency, public/internal Host mismatch, missing Escape behavior, missing icon requests, narrow-screen heading clipping, and two low-contrast text colors. Fixed and verified with 47 unit/component tests and eight passing Playwright tests: four viewport sizes (320/390/768/1440), keyboard navigation, two axe WCAG A/AA scans with zero detected violations, and browser form → HTTP 201 → actual database readback. Screenshots were inspected by Codex; no human visual review is claimed. The readback record `cmv6dws3p0000lz8kh5ztm1cl` was removed by the test's exact-ID cleanup.
+- **Next.js + TypeScript:** Arayüz ve API'yi tek projede tutmak için kullanıldı.
+- **PostgreSQL + Prisma:** Form verisinin tarayıcıda değil, sunucuda kalıcı olarak saklanması için seçildi.
+- **Zod:** İstemci ve sunucuda tutarlı alan doğrulaması sağlamak için kullanıldı.
+- **Vitest + Playwright:** Yalnızca kodun derlenmesini değil, formun ve veritabanı akışının çalışmasını da kontrol etmek için kullanıldı.
+- **Neon + Vercel:** Ayrı bir sunucu yönetmeden uygulamayı yayınlamak için tercih edildi.
 
-## Final clean-install verification — 2026-10-13
+Bu araçların uygulanmasında AI'den yararlandım; seçimleri case'in ihtiyaçlarına göre değerlendirerek ilerledim.
 
-- Standard lockfile-based `npm ci`, including automatic Prisma generation: passed on temporary Node 24.21.0 / npm 10.9.0.
-- ESLint, strict TypeScript with fresh Next route types, Prettier and Git whitespace checks: passed.
-- Vitest: **47 unit/component tests + 3 real PostgreSQL integration tests passed**.
-- Production build: passed; static landing page and Node API route generated without a database connection at build time.
-- Playwright: **8 tests passed** against production in headless Edge; zero console/page errors in four viewport checks, no horizontal/heading overflow, zero detected axe violations at 390/1440 pixels. This does not establish complete WCAG conformance or cross-browser coverage.
-- Final full browser submission/readback ID: `cmv6elbrv0000lzz02vfyyzjl`; test cleanup deleted exactly that row.
-- Independent restart proof: helper inserted `cmv6e8s4m0000lzw4bd4g9423`, the isolated PostgreSQL server was fully stopped/restarted, and a new process read the same ID and timestamp successfully. Exact-ID fixture cleanup completed. The helper and integration isolation checks are committed for reproduction.
-- Runtime dependency audit (`npm audit --omit=dev`): **0 reported vulnerabilities**. Full audit: **5 high development-only findings**, all propagated through `braces` → `micromatch` → `fast-glob` → Next ESLint tooling ([advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)). No available fix was applied via a forced framework downgrade; no advisory was suppressed. Recheck upstream fixes before public deployment.
-- At the time of the original automated run, no Lighthouse score, human audit, hosted deployment, public final source revision, or live URL was claimed. Later owner-led delivery is recorded below.
+## Karşılaştığım sorunlar ve kontroller
 
-## Delivery tooling
+1. **Entegrasyon testleri başarısız oldu.** Prisma, geçici test şemasındaki tabloları bulamadı. Migration SQL'leri doğru şemada çalışacak şekilde düzeltildi (`7fd3cfd`). Ardından testleri tekrar çalıştırdım: **3/3 geçti**.
+2. **Playwright kurulumu P3005 hatası verdi.** Test veritabanındaki dolu `public` şeması yerine ayrı bir `flowpilot_e2e` şeması kullandım. Tarayıcı testleri başarılı oldu.
+3. **Canlı kayıt kontrolü yaptım.** Formu Vercel'deki siteden gönderdim ve kaydın Neon PostgreSQL'de oluştuğunu doğruladım.
+4. **Tema tasarımını gözden geçirdim.** Light/Dark geçişini sonradan eklettim. Koyu temada talep bölümünün kontrastı bozulunca ekran görüntüsüyle sorunu bildirdim ve düzeltildi.
 
-Node 24 is pinned for local/Vercel compatibility. Prisma generates on install and build; type checking generates Next route declarations. Runtime/test environment variables, migrations, isolated tests, verification cleanup, fixed-window limits, retry uncertainty, and Vercel release steps are documented. `.env*` (except the placeholder example), database files, dependencies, build output and generated route declarations are ignored. The local trust-auth PostgreSQL cluster was bound only to loopback port 55432 under `.local/postgres`; it is test infrastructure, not production configuration.
+İlk geliştirme sırasında AI tarafından **47 birim/bileşen testi, 3 PostgreSQL entegrasyon testi ve 8 Playwright testi** başarılı olarak raporlandı. Kendi ortamımda entegrasyon testlerinin 3/3 geçtiğini ve Playwright testlerinin başarılı olduğunu ayrıca gördüm. Son tema değişikliklerinden sonra tüm testlerin yeniden çalıştırıldığını iddia etmiyorum.
 
-Delivery tooling was committed as `a89676c`; final documentation adds the setup, API contract, deployment procedure, known limits and verification instructions. The isolated PostgreSQL process was stopped after verification; its ignored `.local/postgres` data remains available. No other PostgreSQL service was restarted or stopped. The original handoff required human review and deployment; subsequent owner checks are recorded below.
+## Bilinen sınırlar
 
-## Human handoff
+FlowPilot gerçek otomasyon süreçleri çalıştırmıyor; kullanıcı hesabı, yönetim paneli veya gerçek müşteri entegrasyonu içermiyor. Bunlar verilen görevin kapsamı dışındaydı. Tema değişikliklerinden sonra mobil görünüm ve kontrastın son kez kontrol edilmesi gerekiyor. Gerçek müşteri verileriyle kullanım için ayrıca gizlilik ve veri saklama süreçleri belirlenmeli.
 
-Review the code, product wording, privacy/retention policy, target PostgreSQL connection, and production hosting configuration before public use. Deployment requires the owner's credentials and authorization.
+**Canlı uygulama:** https://flowpilot-orcin.vercel.app/  
+**Kaynak kod:** https://github.com/GorkemErtas/flowpilot
 
-## Post-handoff fixes and delivery — 2026-10-13
-
-- The owner connected Neon PostgreSQL and confirmed a real form submission created a database record.
-- GitHub fix `7fd3cfd` scoped raw migration SQL to the isolated PostgreSQL test schema via a transaction-local search path. The owner reran integration tests and reported **3/3 passing**.
-- The owner configured an empty `flowpilot_e2e` schema after encountering Prisma P3005 on a nonempty test `public` schema and reported the Playwright suite passed.
-- The owner deployed [FlowPilot](https://flowpilot-orcin.vercel.app/) to Vercel and confirmed that a live submission persisted to the primary Neon database. The public URL and GitHub repository are documented in README.
-- ChatGPT subsequently added a header light/dark toggle, with light as the default and explicit user choice persisted in browser localStorage. Dark styling is an additional feature, not part of the originally verified browser suite.
-- **Verification boundary:** These later GitHub changes were made remotely without running local lint, build, screenshot, or accessibility checks. The owner should run `npm run lint`, `npm run typecheck`, `npm run build`, and `npm run test:e2e`, inspect both themes at mobile and desktop widths, and verify Vercel redeploy before final submission.
-
-## Outstanding checks
-
-- Confirm dark-theme color contrast and visual consistency across all sections, form errors, focus states, and mobile navigation. No post-theme WCAG audit is claimed.
-- Recheck dependency advisories and capture the final deployment commit SHA. Maintain separate test and production databases and avoid using real personal information in this demonstration.
+> Bu kayıt, AI katkısını ve gerçekten yaptığım kontrolleri açıkça göstermek için tutuldu. Doğrulamadığım bir sonucu başarılı olarak göstermedim.
