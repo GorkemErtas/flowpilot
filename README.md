@@ -78,10 +78,14 @@ Kayıt ve hız sınırı sayaçları tek PostgreSQL transaction'ında işlenir. 
 
 GitHub reposu Vercel'e bağlı. Production ortamında Neon'un **ana veritabanı** `DATABASE_URL` olarak tanımlanıyor; `TEST_DATABASE_URL` production'a eklenmiyor. Migration'lar kontrollü olarak `npm run db:deploy` ile uygulanıyor. Yeni commit'lerden sonra Vercel deployment'ı ve canlı form yeniden kontrol edilmeli.
 
+## Geliştirme süreci
+
+Projeyi planlama, geliştirme, test ve canlıya alma dahil **3 saatten kısa sürede** tamamladım. Önce uygulamanın amacını, işleyişini, kullanılacak teknolojileri ve mimari yaklaşımı belirledim. Bu bilgileri ChatGPT ile paylaşarak Codex'e verebileceğim kapsamlı bir AI developer prompt'u hazırlattım.
+
+Ardından bu prompt ile Codex'te geliştirmeyi başlattım. Süreç boyunca ortaya çıkan kodu ve sonuçları değerlendirip gerekli yönlendirmeleri yaptım; testlerde karşılaştığım sorunları gidererek uygulamayı yayına aldım. AI'yi geliştirme sürecini hızlandıran bir araç olarak kullandım; gereksinimleri belirleme, karar verme ve doğrulama sorumluluğunu üstlendim. Sürecin ayrıntılarını [AI_LOG.md](AI_LOG.md) dosyasında paylaştım.
+
 ## Bilinen sınırlar
 
 FlowPilot gerçek iş akışlarını çalıştırmıyor; kullanıcı hesabı, yönetim paneli ve gerçek servis entegrasyonları yok. Bunlar bu çalışmanın kapsamına dahil edilmedi. Gerçek kişisel verilerle kullanımdan önce veri saklama ve gizlilik süreçleri belirlenmeli. Son teslim kontrolünde mobil görünümü, açık/koyu temayı ve yazı okunabilirliğini de gözden geçirdim.
-
-Bu projeyi AI desteğiyle geliştirdim. Neyi AI'ye yaptırdığımı, hangi kararları verdiğimi, karşılaştığım hataları ve doğrulama adımlarını **[AI_LOG.md](AI_LOG.md)** dosyasında anlattım.
 
 **Teslim commit'i:** GitHub'daki son `main` commit'i. Tam SHA için `git rev-parse HEAD` komutunu kullanabilirsiniz.
