@@ -2,7 +2,7 @@
 
 ## Context
 
-Codex implemented this fictional Enteksis case study from the supplied brief. No human review, deployment, or real customer use is claimed. Git identity and the initial repository history were preserved.
+Codex implemented this fictional Enteksis case study from the supplied brief. Initial implementation was AI-assisted; the project owner subsequently reviewed the interface, deployed the site, and confirmed a synthetic live submission. No real customer use is claimed. Git identity and the initial repository history were preserved.
 
 ## Milestones and decisions
 
@@ -31,14 +31,28 @@ Codex implemented this fictional Enteksis case study from the supplied brief. No
 - Final full browser submission/readback ID: `cmv6elbrv0000lzz02vfyyzjl`; test cleanup deleted exactly that row.
 - Independent restart proof: helper inserted `cmv6e8s4m0000lzw4bd4g9423`, the isolated PostgreSQL server was fully stopped/restarted, and a new process read the same ID and timestamp successfully. Exact-ID fixture cleanup completed. The helper and integration isolation checks are committed for reproduction.
 - Runtime dependency audit (`npm audit --omit=dev`): **0 reported vulnerabilities**. Full audit: **5 high development-only findings**, all propagated through `braces` → `micromatch` → `fast-glob` → Next ESLint tooling ([advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)). No available fix was applied via a forced framework downgrade; no advisory was suppressed. Recheck upstream fixes before public deployment.
-- No Lighthouse score, human audit, hosted deployment, public final source revision, or live URL is claimed. No remote push was performed.
+- At the time of the original automated run, no Lighthouse score, human audit, hosted deployment, public final source revision, or live URL was claimed. Later owner-led delivery is recorded below.
 
 ## Delivery tooling
 
 Node 24 is pinned for local/Vercel compatibility. Prisma generates on install and build; type checking generates Next route declarations. Runtime/test environment variables, migrations, isolated tests, verification cleanup, fixed-window limits, retry uncertainty, and Vercel release steps are documented. `.env*` (except the placeholder example), database files, dependencies, build output and generated route declarations are ignored. The local trust-auth PostgreSQL cluster was bound only to loopback port 55432 under `.local/postgres`; it is test infrastructure, not production configuration.
 
-Delivery tooling was committed as `a89676c`; final documentation adds the setup, API contract, deployment procedure, known limits and verification instructions. The isolated PostgreSQL process was stopped after verification; its ignored `.local/postgres` data remains available. No other PostgreSQL service was restarted or stopped. Human review and deployment remain outstanding.
+Delivery tooling was committed as `a89676c`; final documentation adds the setup, API contract, deployment procedure, known limits and verification instructions. The isolated PostgreSQL process was stopped after verification; its ignored `.local/postgres` data remains available. No other PostgreSQL service was restarted or stopped. The original handoff required human review and deployment; subsequent owner checks are recorded below.
 
 ## Human handoff
 
 Review the code, product wording, privacy/retention policy, target PostgreSQL connection, and production hosting configuration before public use. Deployment requires the owner's credentials and authorization.
+
+## Post-handoff fixes and delivery — 2026-10-13
+
+- The owner connected Neon PostgreSQL and confirmed a real form submission created a database record.
+- GitHub fix `7fd3cfd` scoped raw migration SQL to the isolated PostgreSQL test schema via a transaction-local search path. The owner reran integration tests and reported **3/3 passing**.
+- The owner configured an empty `flowpilot_e2e` schema after encountering Prisma P3005 on a nonempty test `public` schema and reported the Playwright suite passed.
+- The owner deployed [FlowPilot](https://flowpilot-orcin.vercel.app/) to Vercel and confirmed that a live submission persisted to the primary Neon database. The public URL and GitHub repository are documented in README.
+- ChatGPT subsequently added a header light/dark toggle, with light as the default and explicit user choice persisted in browser localStorage. Dark styling is an additional feature, not part of the originally verified browser suite.
+- **Verification boundary:** These later GitHub changes were made remotely without running local lint, build, screenshot, or accessibility checks. The owner should run `npm run lint`, `npm run typecheck`, `npm run build`, and `npm run test:e2e`, inspect both themes at mobile and desktop widths, and verify Vercel redeploy before final submission.
+
+## Outstanding checks
+
+- Confirm dark-theme color contrast and visual consistency across all sections, form errors, focus states, and mobile navigation. No post-theme WCAG audit is claimed.
+- Recheck dependency advisories and capture the final deployment commit SHA. Maintain separate test and production databases and avoid using real personal information in this demonstration.
