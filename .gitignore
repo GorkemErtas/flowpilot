@@ -1,12 +1,12 @@
 node_modules/
 .next/
 coverage/
-.env
-.env.local
-.env.*.local
+.env*
 !.env.example
 *.tsbuildinfo
 generated/
 .local/
 test-results/
 playwright-report/
+next-env.d.ts
+.vercel/

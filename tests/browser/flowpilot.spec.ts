@@ -22,7 +22,11 @@ for (const width of [320, 390, 768, 1440]) {
       await expect(reveal).toHaveCSS("transform", "none");
     }
     for (const heading of await page.locator("h1, h2, h3").all()) {
-      expect(await heading.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
+      expect(
+        await heading.evaluate(
+          (element) => element.scrollWidth <= element.clientWidth + 1,
+        ),
+      ).toBe(true);
     }
     await page.getByLabel("Ad soyad").scrollIntoViewIfNeeded();
     await expect(page.getByLabel("Ad soyad")).toBeVisible();
