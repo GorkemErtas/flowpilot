@@ -10,7 +10,9 @@ export const metadata: Metadata = {
   description: "KOBİ'ler için yalın ve güvenilir iş otomasyonu danışmanlığı.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="tr">
       <body className={manrope.variable}>{children}</body>
