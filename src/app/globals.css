@@ -150,3 +150,18 @@ html[data-theme="dark"] [class*="bg-[#0d6d62]"] { background-color: #126e64 !imp
 html[data-theme="dark"] [class*="bg-[#0d6d62]"][class*="text-white"] { color: white !important; }
 html[data-theme="dark"] [class*="bg-[#fff1ee]"] { background-color: #4b2729 !important; }
 html[data-theme="dark"] [class*="text-[#a32d28]"] { color: #ffb5aa !important; }
+
+/* Keep the request callout legible without changing its light-mode design. */
+html[data-theme="dark"] .request-section-panel {
+  background-color: #19332f !important;
+  border: 1px solid #365b52;
+}
+html[data-theme="dark"] .request-section-panel .section-title {
+  color: #f0faf5 !important;
+}
+html[data-theme="dark"] .request-section-panel .eyebrow {
+  color: #a9e9c5 !important;
+}
+html[data-theme="dark"] .request-section-panel > div p[class*="text-[#526968]"] {
+  color: #c4d9d1 !important;
+}
