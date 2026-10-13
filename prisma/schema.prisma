@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ServiceType {
+  WORKFLOW_AUTOMATION
+  AI_INTEGRATION
+  DATA_REPORTING_AUTOMATION
+}
+
+model ServiceRequest {
+  id          String      @id @default(cuid())
+  fullName    String      @db.VarChar(100)
+  email       String      @db.VarChar(254)
+  service     ServiceType
+  description String      @db.VarChar(2000)
+  createdAt   DateTime    @default(now())
+
+  @@index([createdAt])
+}
